@@ -1,13 +1,13 @@
 let readyPlayerCount = 0;
+let playAgain = 0;
 
 function listen(io) {
   io.on("connection", (socket) => {
     console.log(`client connected : ${socket.id}`);
 
     socket.on("ready", () => {
-      console.log("ready-triggered✨✨");
       readyPlayerCount++;
-      console.log(readyPlayerCount);
+      console.log({ readyPlayerCount });
       if (readyPlayerCount % 2 == 0) {
         io.emit("startGame", socket.id);
       }
@@ -26,6 +26,7 @@ function listen(io) {
       console.log(`winner found from srever:${winner}`);
     });
 
+    
     socket.on("disconnect", (reason) => {
       console.log(`client ${socket.id} disconnected:${reason}`);
     });

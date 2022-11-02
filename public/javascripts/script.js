@@ -1,6 +1,6 @@
 // Canvas Related
 const canvas = document.createElement("canvas");
-const playAgainButton = document.createElement('button')
+const playAgainButton = document.createElement("button");
 const context = canvas.getContext("2d");
 // const socket = io(`http://localhost:3000`);
 const socket = io();
@@ -38,7 +38,7 @@ let speedX = 0;
 let score = [0, 0];
 
 // winning score
-const winScore = 3;
+const winScore = 1;
 
 // check for winner using score array
 function checkWinner(score) {
@@ -55,7 +55,7 @@ function createCanvas() {
   canvas.height = height;
   // document.body.appendChild(canvas);
   h1.after(canvas);
- 
+
   renderCanvas();
 }
 
@@ -86,43 +86,42 @@ function renderWinner(player) {
     canvas.height / 2 - 30
   );
 
-  
-  // playagain button is created 
+  // playagain button is created
   playAgainButton.id = "playAgain";
-  playAgainButton.innerHTML="PLAY AGAIN!"
+  playAgainButton.innerHTML = "PLAY AGAIN!";
   // document.body.appendChild(canvas);
   canvas.after(playAgainButton);
 
-  playAgainButton.addEventListener('click', () => {
-    playAgainButton.remove()
-    
+  playAgainButton.addEventListener(
+    "click",
+    () => {
+      playAgainButton.remove();
 
-    winner = "";
-    
-    // Paddle
-    paddleX = [225, 225];
-    trajectoryX = [0, 0];
-    playerMoved = false;
+      winner = "";
 
-    // Ball
-    ballX = 250;
-    ballY = 350;
-    ballDirection = 1;
+      // Paddle
+      paddleX = [225, 225];
+      trajectoryX = [0, 0];
+      playerMoved = false;
 
-    // Speed
-    speedY = 2;
-    speedX = 0;
-    // computerSpeed = 4;
+      // Ball
+      ballX = 250;
+      ballY = 350;
+      ballDirection = 1;
 
-    // Score for Both Players
-    score = [0, 0];
+      // Speed
+      speedY = 2;
+      speedX = 0;
+      // computerSpeed = 4;
 
+      // Score for Both Players
+      score = [0, 0];
 
-    loadGame()
-    playAgainButton.removeEventListener('click', (e) => {
-      console.log(e)
-    })
-  })
+      
+      loadGame()
+    },
+    { once: true }
+  );
 }
 
 // Render Everything on Canvas
@@ -347,3 +346,4 @@ socket.on("winnerFound", (finalWinner) => {
     console.log(`game Over!`);
   });
 });
+
