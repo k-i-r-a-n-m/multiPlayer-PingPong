@@ -1,0 +1,3 @@
+playAgain feature added
+-------------------------------
+-click event propagation stoped using the 3rd option of addEventListener() "once:true"
