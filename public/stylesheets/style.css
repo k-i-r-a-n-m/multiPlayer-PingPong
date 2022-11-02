@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  background-color: rgb(39, 39, 39);
+  display: flex;
+  justify-content: center;
+
+  font-family: "Courier New", Courier, monospace;
+}
+#winScore_h1 {
+  font-size: 20px;
+  /* height: 50px; */
+  color: white;
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+a {
+  color: #00b7ff;
+}
+
+#canvas {
+  margin-top: 0px;
+  z-index: 10;
+}
+
+#playAgain {
+  margin-top: 0.2em;
+  width:200px;
+  height:50px;
+  /* background-color: #ffb700; */
+  font-weight: bolder;
+  font-size: medium;
+  margin-left:auto;
+  margin-right: auto;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #ffb700;
+  color: white;
+}
+
+
+/* Montior and Larger */
+@media screen and (min-width: 1800px) {
+  canvas {
+    margin-top: 100px;
+  }
+}
+
+/* Large Smartphone (Vertical) */
+@media screen and (max-width: 500px) {
+  canvas {
+    width: 100%;
+    height: 700px;
+    margin-top: 50px;
+  }
+}
