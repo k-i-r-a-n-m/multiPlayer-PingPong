@@ -3,7 +3,9 @@ const canvas = document.createElement("canvas");
 const playAgainButton = document.createElement("button");
 const context = canvas.getContext("2d");
 // const socket = io(`http://localhost:3000`);
-const socket = io();
+
+// creating namespace for pong game
+const socket = io('/pong');
 
 const h1 = document.querySelector("#winScore_h1");
 
@@ -293,27 +295,31 @@ function loadGame() {
   socket.emit("ready");
 }
 
+// capturing the mouse movements for the paddle to move inside the canvas
+function captureMouseMovement(e) {
+   playerMoved = true;
+   paddleX[paddleIndex] = e.offsetX;
+   if (paddleX[paddleIndex] < 0) {
+     paddleX[paddleIndex] = 0;
+   }
+   if (paddleX[paddleIndex] > width - paddleWidth) {
+     paddleX[paddleIndex] = width - paddleWidth;
+   }
+   // sent the paddle movement data to the server
+   socket.emit("paddleMovement", {
+     xPosition: paddleX[paddleIndex],
+   });
+   // Hide Cursor
+   canvas.style.cursor = "none";
+}
+
+
 //Start the game
 function startGame() {
   paddleIndex = isReferee ? 0 : 1;
   window.requestAnimationFrame(animate);
   if (winner === "") {
-    canvas.addEventListener("mousemove", (e) => {
-      playerMoved = true;
-      paddleX[paddleIndex] = e.offsetX;
-      if (paddleX[paddleIndex] < 0) {
-        paddleX[paddleIndex] = 0;
-      }
-      if (paddleX[paddleIndex] > width - paddleWidth) {
-        paddleX[paddleIndex] = width - paddleWidth;
-      }
-      // sent the paddle movement data to the server
-      socket.emit("paddleMovement", {
-        xPosition: paddleX[paddleIndex],
-      });
-      // Hide Cursor
-      canvas.style.cursor = "none";
-    });
+    canvas.addEventListener("mousemove",captureMouseMovement);
   }
 }
 
@@ -341,9 +347,8 @@ socket.on("ballMove", (ballData) => {
 
 socket.on("winnerFound", (finalWinner) => {
   winner = finalWinner;
+  canvas.style.cursor = "auto";
   renderWinner(winner);
-  canvas.removeEventListener("mousemove", (e) => {
-    console.log(`game Over!`);
-  });
+  canvas.removeEventListener("mousemove",captureMouseMovement);
 });
 

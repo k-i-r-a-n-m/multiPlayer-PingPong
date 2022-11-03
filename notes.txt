@@ -1,3 +1,9 @@
 playAgain feature added
 -------------------------------
 -click event propagation stoped using the 3rd option of addEventListener() "once:true"
+
+
+
+NameSpace,rooms added & fixed mouse bug over winner canvas
+-----------------------------------------------------------
+-addEventListener and removeEventListener must have same function handler reference
