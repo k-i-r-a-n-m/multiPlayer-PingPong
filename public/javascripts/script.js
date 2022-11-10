@@ -40,7 +40,7 @@ let speedX = 0;
 let score = [0, 0];
 
 // winning score
-const winScore = 1;
+const winScore = 10;
 
 // check for winner using score array
 function checkWinner(score) {
